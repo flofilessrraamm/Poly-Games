@@ -13,12 +13,12 @@ TagManager:
   - UI
   - 
   - 
-  - Corrupted
   - Player
-  - 
-  - 
-  - 
-  - 
+  - Corrupted
+  - Corrupted_Collision
+  - Uncorrupted
+  - Uncorrupted_Collision
+  - Changeable
   - 
   - 
   - 

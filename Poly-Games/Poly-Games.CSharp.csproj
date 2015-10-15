@@ -68,9 +68,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Camera1_follow.cs" />
-    <Compile Include="Assets\Camera2_follow.cs" />
-    <Compile Include="Assets\Player_Control.cs" />
+    <Compile Include="Assets\Scripts\Buisson.cs" />
+    <Compile Include="Assets\Scripts\Camera1_follow.cs" />
+    <Compile Include="Assets\Scripts\Camera2_follow.cs" />
+    <Compile Include="Assets\Scripts\FilleControl.cs" />
+    <Compile Include="Assets\Scripts\FillePhysics.cs" />
+    <Compile Include="Assets\Scripts\PereControl.cs" />
+    <Compile Include="Assets\Scripts\PerePhysics.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

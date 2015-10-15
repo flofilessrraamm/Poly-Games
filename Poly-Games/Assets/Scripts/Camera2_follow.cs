@@ -6,8 +6,9 @@ public class Camera2_follow : MonoBehaviour
 
 
     public GameObject player;
-    public float distance = 10.0f, smoothFactor = 5f, width = 256f, height = 256f;
-    Vector3 velocity, screenPos;
+    public float distance = 10.0f, smoothFactor = 5f, nbCasesAura = 3f;
+    private BoxCollider2D auraCollider;
+    Vector3 screenPos;
     Camera aura;
     public Camera main;
 
@@ -16,14 +17,18 @@ public class Camera2_follow : MonoBehaviour
     void Start()
     {
         aura = GetComponent<Camera>();
+        auraCollider = GetComponent<BoxCollider2D>();
+        auraCollider.size = new Vector2(nbCasesAura, nbCasesAura);
 
     }
 
 
     void Update()
     {
+        float grandeurAura = nbCasesAura * Screen.height / (main.orthographicSize * 2f);
         screenPos = main.WorldToScreenPoint(player.transform.position);
-        aura.rect = new Rect((screenPos.x) / Screen.width - width/2,  (screenPos.y) / Screen.height - height/2, width, height);
+        aura.pixelRect = new Rect(screenPos.x - (grandeurAura) /2, screenPos.y - (grandeurAura) / 2, grandeurAura, grandeurAura);
+        aura.orthographicSize = nbCasesAura/2;
         /*
         if (player)
         {
