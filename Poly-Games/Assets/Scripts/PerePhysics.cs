@@ -9,7 +9,9 @@ public class PerePhysics : MonoBehaviour
     public bool grounded;
     private BoxCollider2D boxCollider;
     private Vector2 c, s;
-    private float skin = .005f;
+    [HideInInspector]
+    public float deltaX, deltaY;
+    public float skin = .005f;
     Ray2D ray;
     RaycastHit2D hit;
 
@@ -24,8 +26,8 @@ public class PerePhysics : MonoBehaviour
     // Use this for initialization
     public void Move(Vector3 moveAmount)
     {
-        float deltaY = moveAmount.y;
-        float deltaX = moveAmount.x;
+        deltaY = moveAmount.y;
+        deltaX = moveAmount.x;
         Vector2 p = transform.position;
 
         grounded = false;
@@ -70,6 +72,7 @@ public class PerePhysics : MonoBehaviour
             if (hit)
             {
                 float dst = Vector2.Distance(origin, hit.point);
+
                 if (dst > skin)
                 {
                     deltaX = dir * dst - dir * skin;

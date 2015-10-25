@@ -8,7 +8,7 @@ public class FillePhysics : MonoBehaviour {
     public bool grounded;
     private BoxCollider2D boxCollider;
     private Vector2 c, s;
-    private float skin = .005f;
+    public float skin = .005f;
     Ray2D ray;
     RaycastHit2D hit;
 

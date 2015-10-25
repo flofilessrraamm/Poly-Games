@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - pere
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Uncorrupted
   - Uncorrupted_Collision
   - Changeable
-  - 
+  - Changeable_Collision
   - 
   - 
   - 
@@ -43,4 +44,7 @@ TagManager:
     locked: 0
   - name: Corrupted_level
     uniqueID: 3647065341
+    locked: 0
+  - name: Foreground
+    uniqueID: 669416469
     locked: 0

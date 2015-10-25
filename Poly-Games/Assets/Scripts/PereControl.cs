@@ -4,12 +4,12 @@ using System.Collections;
 [RequireComponent(typeof(PerePhysics))]
 public class PereControl : MonoBehaviour
 {
-
-    float currentSpeed;
-    public float targetSpeed = 8, jumpHeight = 12, acceleration = 12, gravity = 20;
+    [HideInInspector]
+    public float currentSpeed;
+    public float targetSpeed = 8, jumpHeight = 12, acceleration = 12, gravity = 20, sableFall = 3f;
     private Vector3 amountToMove;
     private PerePhysics physics;
-    public bool isDead;
+    public bool isDead, isInSable;
     Sprite dead;
 
     // Use this for initialization
@@ -24,7 +24,7 @@ public class PereControl : MonoBehaviour
     {
         int dir = 0;
 
-        if(!isDead)
+        if(!isDead && !isInSable)
         {
             if (Input.GetKey("a"))
             {
@@ -48,7 +48,10 @@ public class PereControl : MonoBehaviour
 
         currentSpeed = incrementSpeed(currentSpeed, targetSpeed, acceleration, dir);
         amountToMove.x = currentSpeed;
-        amountToMove.y -= gravity * Time.deltaTime;
+        if(!isInSable)
+            amountToMove.y -= gravity * Time.deltaTime;
+        else
+            amountToMove.y = - sableFall * Time.deltaTime;
         physics.Move(amountToMove * Time.deltaTime);
     }
 

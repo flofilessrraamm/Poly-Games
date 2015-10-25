@@ -45,11 +45,7 @@ public class Buisson : MonoBehaviour {
     }
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject == fille)
-        {
-            isPere = false;
-        }
-        if (col.gameObject == pere && corrupted)
+        if (col.gameObject == pere)
         {
             isPere = false;
         }

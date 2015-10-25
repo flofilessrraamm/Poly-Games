@@ -7,7 +7,7 @@ public class Camera2_follow : MonoBehaviour
 
     public GameObject player;
     public float distance = 10.0f, smoothFactor = 5f, nbCasesAura = 3f;
-    private BoxCollider2D auraCollider;
+    private CircleCollider2D auraCollider;
     Vector3 screenPos;
     Camera aura;
     public Camera main;
@@ -17,8 +17,8 @@ public class Camera2_follow : MonoBehaviour
     void Start()
     {
         aura = GetComponent<Camera>();
-        auraCollider = GetComponent<BoxCollider2D>();
-        auraCollider.size = new Vector2(nbCasesAura, nbCasesAura);
+        auraCollider = GetComponent<CircleCollider2D>();
+        auraCollider.radius = nbCasesAura/2;
 
     }
 
