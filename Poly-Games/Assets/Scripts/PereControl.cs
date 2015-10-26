@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(PerePhysics))]
+[RequireComponent(typeof(PlayerPhysics))]
 public class PereControl : MonoBehaviour
 {
     [HideInInspector]
     public float currentSpeed;
+    [HideInInspector]
+    public int dir;
     public float targetSpeed = 8, jumpHeight = 12, acceleration = 12, gravity = 20, sableFall = 3f;
     private Vector3 amountToMove;
-    private PerePhysics physics;
+    private PlayerPhysics physics;
     public bool isDead, isInSable;
     Sprite dead;
 
@@ -16,13 +18,13 @@ public class PereControl : MonoBehaviour
     void Start()
     {
         dead = Resources.Load("dead", typeof(Sprite)) as Sprite;
-        physics = GetComponent<PerePhysics>();
+        physics = GetComponent<PlayerPhysics>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        int dir = 0;
+        dir = 0;
 
         if(!isDead && !isInSable)
         {

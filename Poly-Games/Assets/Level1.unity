@@ -1154,7 +1154,7 @@ GameObject:
   - 114: {fileID: 552004058}
   - 114: {fileID: 552004060}
   - 61: {fileID: 552004054}
-  m_Layer: 8
+  m_Layer: 15
   m_Name: fille
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1992,6 +1992,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSpeed: 0
+  dir: 0
   targetSpeed: 7
   jumpHeight: 22
   acceleration: 100
@@ -2007,16 +2008,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1031159173}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b840fc11d088c249bfdcce8ba246db3, type: 3}
+  m_Script: {fileID: 11500000, guid: c75b3a63ecb9ace4ca06f2d447e3260b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   collisionMask:
     serializedVersion: 2
-    m_Bits: 20480
+    m_Bits: 86016
   grounded: 0
-  deltaX: 0
-  deltaY: 0
   skin: 9.99999975e-06
+  slopeMult: 10
+  maxClimbAngle: 70
 --- !u!212 &1031159177
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3044,7 +3045,7 @@ GameObject:
   - 212: {fileID: 1349447330}
   - 61: {fileID: 1349447328}
   - 114: {fileID: 1349447329}
-  m_Layer: 14
+  m_Layer: 16
   m_Name: bloc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3081,6 +3082,7 @@ MonoBehaviour:
   grounded: 0
   skin: .00499999989
   gravity: 50
+  rayLength: .0500000007
   currentSpeed: 0
 --- !u!212 &1349447330
 SpriteRenderer:
@@ -3115,7 +3117,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1349447327}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.57000017, y: 5.30000019, z: 0}
+  m_LocalPosition: {x: 3.38000011, y: 5.30000019, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

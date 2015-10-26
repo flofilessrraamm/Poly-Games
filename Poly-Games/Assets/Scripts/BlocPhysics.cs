@@ -10,8 +10,8 @@ public class BlocPhysics : MonoBehaviour
     private BoxCollider2D boxCollider;
     private Vector2 c, s, p, amountToMove;
     private bool isMoving;
-    public float skin = .00001f, gravity = 50f;
-    private float deltaX, deltaY, dir;
+    public float skin = .00001f, gravity = 50f, rayLength = 0.05f;
+    private float deltaX, deltaY, dir, collisionDir;
     [HideInInspector]
     public float currentSpeed;
     Ray2D ray;
@@ -46,6 +46,58 @@ public class BlocPhysics : MonoBehaviour
         grounded = false;
 
         //collisions haut/bas
+        VerticalCollisions();
+        HorizontalCollisions();
+
+        isMoving = false;
+        collisionDir = 0;
+
+        Vector3 transformMod = new Vector3(deltaX, deltaY, 0);
+
+        transform.position += transformMod;
+    }
+
+    public bool DoubleLoop(int i)
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            dir = Mathf.Pow(-1, j);
+            float x = p.x + c.x + s.x / 2 * dir;
+            float y = (p.y + c.y - s.y / 2) + s.y / 2 * i;
+            Vector2 origin = new Vector2(x, y);
+            ray = new Ray2D(origin, new Vector2(dir, 0));
+            hit = Physics2D.Raycast(ray.origin, ray.direction, rayLength, collisionMask);
+            Debug.DrawRay(ray.origin, ray.direction * rayLength);
+            if (hit)
+            {
+                float dst = Vector2.Distance(origin, hit.point);
+
+                if (hit.transform.gameObject.tag == "pere")
+                {
+                    PereControl pere = hit.transform.gameObject.GetComponent<PereControl>();
+                    if (-collisionDir == pere.dir || collisionDir == 0)
+                    {
+                        deltaX = pere.currentSpeed * Time.deltaTime / 10;
+                    }
+                }
+                else
+                {
+                    collisionDir = dir;
+                    if (dst > skin)
+                    {
+                        deltaX = dir * dst - dir * skin;
+                    }
+                    else
+                    {
+                        deltaX = 0;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+    void VerticalCollisions()
+    {
         for (int i = 0; i < 3; i++)
         {
             float dir = -1;
@@ -71,53 +123,13 @@ public class BlocPhysics : MonoBehaviour
                 break;
             }
         }
-
+    }
+    void HorizontalCollisions()
+    {
         for (int i = 0; i < 3; i++)
         {
             if (!DoubleLoop(i)) break;
         }
-        if(isMoving)
-        {
-            currentSpeed = hit.transform.gameObject.GetComponent<PereControl>().currentSpeed * Time.deltaTime * -dir;
-        }
-        isMoving = false;
-
-        Vector3 transformMod = new Vector3(deltaX, deltaY, 0);
-
-        transform.position += transformMod;
-    }
-
-    public bool DoubleLoop(int i)
-    {
-        for (int j = 0; j < 2; j++)
-        {
-            dir = Mathf.Pow(-1, j);
-            float x = p.x + c.x + s.x / 2 * dir;
-            float y = (p.y + c.y - s.y / 2) + s.y / 2 * i;
-            Vector2 origin = new Vector2(x, y);
-            ray = new Ray2D(origin, new Vector2(dir, 0));
-            hit = Physics2D.Raycast(ray.origin, ray.direction, 0.005f, collisionMask);
-            Debug.DrawRay(ray.origin, ray.direction);
-            if (hit)
-            {
-                float dst = Vector2.Distance(origin, hit.point);
-
-                if (hit.transform.gameObject.tag == "pere")
-                {
-                    isMoving = true;
-                }
-                if (dst > skin)
-                {
-                    deltaX = dir * dst - dir * skin;
-                }
-                else
-                {
-                    deltaX = 0;
-                }
-                return false;
-            }
-        }
-        return true;
     }
 }
 

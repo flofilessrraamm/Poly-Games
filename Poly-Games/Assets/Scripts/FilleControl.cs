@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(FillePhysics))]
+[RequireComponent(typeof(PlayerPhysics))]
 public class FilleControl : MonoBehaviour
 {
 
     float currentSpeed;
     public float targetSpeed = 8, jumpHeight = 12, acceleration = 12, gravity = 20;
     private Vector3 amountToMove;
-    private FillePhysics physics;
+    private PlayerPhysics physics;
     public bool isDead;
     Sprite dead;
 
@@ -16,7 +16,7 @@ public class FilleControl : MonoBehaviour
     void Start()
     {
         dead = Resources.Load("dead", typeof(Sprite)) as Sprite;
-        physics = GetComponent<FillePhysics>();
+        physics = GetComponent<PlayerPhysics>();
     }
 
     // Update is called once per frame

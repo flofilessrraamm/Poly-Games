@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FillePhysics : MonoBehaviour {
+public class PlayerPhysics : MonoBehaviour {
 
     public LayerMask collisionMask;
     [HideInInspector]
