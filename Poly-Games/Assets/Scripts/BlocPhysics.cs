@@ -57,45 +57,6 @@ public class BlocPhysics : MonoBehaviour
         transform.position += transformMod;
     }
 
-    public bool DoubleLoop(int i)
-    {
-        for (int j = 0; j < 2; j++)
-        {
-            dir = Mathf.Pow(-1, j);
-            float x = p.x + c.x + s.x / 2 * dir;
-            float y = (p.y + c.y - s.y / 2) + s.y / 2 * i;
-            Vector2 origin = new Vector2(x, y);
-            ray = new Ray2D(origin, new Vector2(dir, 0));
-            hit = Physics2D.Raycast(ray.origin, ray.direction, rayLength, collisionMask);
-            Debug.DrawRay(ray.origin, ray.direction * rayLength);
-            if (hit)
-            {
-                float dst = Vector2.Distance(origin, hit.point);
-
-                if (hit.transform.gameObject.tag == "pere")
-                {
-                    PereControl pere = hit.transform.gameObject.GetComponent<PereControl>();
-                    if (-collisionDir == pere.dir || collisionDir == 0)
-                    {
-                        deltaX = pere.currentSpeed * Time.deltaTime / 10;
-                    }
-                }
-                else
-                {
-                    collisionDir = dir;
-                    if (dst > skin)
-                    {
-                        deltaX = dir * dst - dir * skin;
-                    }
-                    else
-                    {
-                        deltaX = 0;
-                    }
-                }
-            }
-        }
-        return true;
-    }
     void VerticalCollisions()
     {
         for (int i = 0; i < 3; i++)
@@ -110,7 +71,11 @@ public class BlocPhysics : MonoBehaviour
             Debug.DrawRay(ray.origin, ray.direction);
             if (hit)
             {
+                if (hit.transform.gameObject.tag == "fille")
+                    hit.transform.gameObject.GetComponent<PlayerPhysics>().isDead = true;
+
                 float dst = Vector2.Distance(origin, hit.point);
+
                 if (dst > skin)
                 {
                     deltaY = dir * dst - dir * skin;
@@ -119,6 +84,7 @@ public class BlocPhysics : MonoBehaviour
                 {
                     deltaY = 0;
                 }
+
                 grounded = true;
                 break;
             }
@@ -128,7 +94,41 @@ public class BlocPhysics : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            if (!DoubleLoop(i)) break;
+            for (int j = 0; j < 2; j++)
+            {
+                dir = Mathf.Pow(-1, j);
+                float x = p.x + c.x + s.x / 2 * dir;
+                float y = (p.y + c.y - s.y / 2) + s.y / 2 * i;
+                Vector2 origin = new Vector2(x, y);
+                ray = new Ray2D(origin, new Vector2(dir, 0));
+                hit = Physics2D.Raycast(ray.origin, ray.direction, rayLength, collisionMask);
+                Debug.DrawRay(ray.origin, ray.direction * rayLength);
+                if (hit)
+                {
+                    float dst = Vector2.Distance(origin, hit.point);
+
+                    if (hit.transform.gameObject.tag == "pere")
+                    {
+                        PereControl pere = hit.transform.gameObject.GetComponent<PereControl>();
+                        if (-collisionDir == pere.dir || collisionDir == 0)
+                        {
+                            deltaX = pere.currentSpeed * Time.deltaTime / 10;
+                        }
+                    }
+                    else
+                    {
+                        collisionDir = dir;
+                        if (dst > skin)
+                        {
+                            deltaX = dir * dst - dir * skin;
+                        }
+                        else
+                        {
+                            deltaX = 0;
+                        }
+                    }
+                }
+            }
         }
     }
 }

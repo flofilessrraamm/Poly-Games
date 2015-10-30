@@ -11,7 +11,7 @@ public class PereControl : MonoBehaviour
     public float targetSpeed = 8, jumpHeight = 12, acceleration = 12, gravity = 20, sableFall = 3f;
     private Vector3 amountToMove;
     private PlayerPhysics physics;
-    public bool isDead, isInSable;
+    public bool isInSable;
     Sprite dead;
 
     // Use this for initialization
@@ -26,7 +26,7 @@ public class PereControl : MonoBehaviour
     {
         dir = 0;
 
-        if(!isDead && !isInSable)
+        if (!physics.isDead && !physics.isInSable)
         {
             if (Input.GetKey("a"))
             {
@@ -36,7 +36,7 @@ public class PereControl : MonoBehaviour
             {
                 dir = 1;
             }
-            if (physics.grounded)
+            if (physics.isGrounded)
             {
                 amountToMove.y = 0;
                 if (Input.GetKeyDown("w"))
@@ -44,17 +44,24 @@ public class PereControl : MonoBehaviour
                     amountToMove.y = jumpHeight;
                 }
             }
+
+
+            currentSpeed = incrementSpeed(currentSpeed, targetSpeed, acceleration, dir);
+            amountToMove.x = currentSpeed;
+            amountToMove.y -= gravity * Time.deltaTime;
+
+            physics.Move(amountToMove * Time.deltaTime);
         }
         else
+        {
             gameObject.GetComponent<SpriteRenderer>().sprite = dead;
-
-        currentSpeed = incrementSpeed(currentSpeed, targetSpeed, acceleration, dir);
-        amountToMove.x = currentSpeed;
-        if(!isInSable)
-            amountToMove.y -= gravity * Time.deltaTime;
-        else
-            amountToMove.y = - sableFall * Time.deltaTime;
-        physics.Move(amountToMove * Time.deltaTime);
+            if (physics.isInSable)
+            {
+                amountToMove.x = 0;
+                amountToMove.y = -sableFall * Time.deltaTime;
+                physics.Move(amountToMove * Time.deltaTime);
+            }
+        }
     }
 
     private float incrementSpeed(float s, float t, float a, int d)
@@ -75,6 +82,6 @@ public class PereControl : MonoBehaviour
                 return t;
         }
     }
-}
 
+}
 

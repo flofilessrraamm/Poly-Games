@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.2.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -70,20 +68,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AuraScript.cs" />
     <Compile Include="Assets\Scripts\BlocPhysics.cs" />
     <Compile Include="Assets\Scripts\Buisson.cs" />
     <Compile Include="Assets\Scripts\Camera1_follow.cs" />
     <Compile Include="Assets\Scripts\Camera2_follow.cs" />
     <Compile Include="Assets\Scripts\FilleControl.cs" />
-    <Compile Include="Assets\Scripts\PlayerPhysics.cs" />
     <Compile Include="Assets\Scripts\PereControl.cs" />
-    <Compile Include="Assets\Scripts\PerePhysics.cs" />
+    <Compile Include="Assets\Scripts\PlayerPhysics.cs" />
     <Compile Include="Assets\Scripts\Sable.cs" />
     <Compile Include="Assets\Scripts\SetRenderQueue.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Resources\DepthMask.shader" />
-    <None Include="Assets\Resources\HoleCutter.shader" />
+    <None Include="Assets\Scripts\HoleCutter.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

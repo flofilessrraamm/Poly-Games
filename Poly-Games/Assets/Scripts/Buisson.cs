@@ -5,54 +5,51 @@ public class Buisson : MonoBehaviour {
 
     // Use this for initialization
 
-    public GameObject fille, pere, aura;
+    public GameObject fille, pere;
     bool corrupted, isPere, isFille;
-    Sprite buisson, buissonC;
 
-    void Start()
-    {
-        buisson = Resources.Load("buisson", typeof(Sprite)) as Sprite;
-        buissonC = Resources.Load("buisson_corrupt", typeof(Sprite)) as Sprite;
-    }
 
     void Update()
     {
         if (isFille)
         {
-            fille.GetComponent<FilleControl>().isDead = true;
+            fille.GetComponent<PlayerPhysics>().isDead = true;
         }
         if (isPere && corrupted)
         {
-            pere.GetComponent<PereControl>().isDead = true;
+            pere.GetComponent<PlayerPhysics>().isInBuisson = true;
+
         }
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject == fille)
+        if (col.gameObject.tag == "fille")
         {
             isFille = true;
         }
-        if (col.gameObject == pere)
-        {
-            isPere = true;
-        }
-        if (col.gameObject == aura)
+        if (col.gameObject.tag == "aura")
         {
             corrupted = true;
-            gameObject.GetComponent<SpriteRenderer>().sprite = buissonC;
+        }
+        if (col.gameObject.tag == "pere")
+        {
+            isPere = true;
         }
     }
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject == pere)
+        if (col.gameObject.tag == "pere")
         {
             isPere = false;
         }
-        if (col.gameObject == aura)
+        if (col.gameObject.tag == "aura")
         {
             corrupted = false;
-            gameObject.GetComponent<SpriteRenderer>().sprite = buisson;
+        }
+        if (col.gameObject.tag == "pere")
+        {
+            isPere = false;
         }
     }
 }

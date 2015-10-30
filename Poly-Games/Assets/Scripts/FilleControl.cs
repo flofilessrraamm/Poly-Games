@@ -9,7 +9,6 @@ public class FilleControl : MonoBehaviour
     public float targetSpeed = 8, jumpHeight = 12, acceleration = 12, gravity = 20;
     private Vector3 amountToMove;
     private PlayerPhysics physics;
-    public bool isDead;
     Sprite dead;
 
     // Use this for initialization
@@ -24,9 +23,9 @@ public class FilleControl : MonoBehaviour
     {
         int dir = 0;
 
-        if (!isDead)
+        if (!physics.isDead)
         {
-                if (Input.GetKey("left"))
+            if (Input.GetKey("left"))
             {
                 dir = -1;
             }
@@ -34,7 +33,7 @@ public class FilleControl : MonoBehaviour
             {
                 dir = 1;
             }
-            if (physics.grounded)
+            if (physics.isGrounded)
             {
                 amountToMove.y = 0;
                 if (Input.GetKeyDown("space") || Input.GetKeyDown("up"))
@@ -42,14 +41,16 @@ public class FilleControl : MonoBehaviour
                     amountToMove.y = jumpHeight;
                 }
             }
-        }
-        else
-            gameObject.GetComponent<SpriteRenderer>().sprite = dead;
 
         currentSpeed = incrementSpeed(currentSpeed, targetSpeed, acceleration, dir);
         amountToMove.x = currentSpeed;
         amountToMove.y -= gravity * Time.deltaTime;
         physics.Move(amountToMove * Time.deltaTime);
+        }
+        else
+        {
+            gameObject.GetComponent<SpriteRenderer>().sprite = dead;
+        }
     }
     private float incrementSpeed(float s, float t, float a, int d)
     {

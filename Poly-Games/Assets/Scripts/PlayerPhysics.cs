@@ -5,8 +5,8 @@ public class PlayerPhysics : MonoBehaviour {
 
     public LayerMask collisionMask;
     [HideInInspector]
-    public bool grounded;
-    private bool climbingSlope;
+    public bool isGrounded, isDead, isInBuisson, isInSable;
+    private bool climbingSlope, isInAura, pere;
     private BoxCollider2D boxCollider;
     private Vector2 c, s, p;
     public float skin = .005f, slopeMult = 10, maxClimbAngle = 70;
@@ -14,30 +14,40 @@ public class PlayerPhysics : MonoBehaviour {
     Ray2D ray;
     RaycastHit2D hit;
 
-    void Start()
+    void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
         c = boxCollider.offset;
         s = boxCollider.size;
-
+        if (gameObject.tag == "pere")
+            pere = true;
     }
 
 	// Use this for initialization
 	public void Move(Vector3 moveAmount)
     {
+        if (isInBuisson && isInAura && pere && !isDead)
+        { 
+            isDead = true;
+        }
+
+
         deltaY = moveAmount.y;
-        deltaX = moveAmount.x;
-        p = transform.position;
-        grounded = false;
-        climbingSlope = false;
+            deltaX = moveAmount.x;
 
-        HorizontalCollisions();
-        VerticalCollisions();
-        //collisions haut/bas
+            ResetCollisions();
 
-        Vector3 transformMod = new Vector3(deltaX, deltaY, 0);
+        if (!isInSable)
+        {
+            HorizontalCollisions();
+            VerticalCollisions();
+        }
+            //collisions haut/bas
 
-        transform.position += transformMod;
+            Vector3 transformMod = new Vector3(deltaX, deltaY, 0);
+
+            transform.position += transformMod;
+        
     }
 
     void HorizontalCollisions()
@@ -59,7 +69,6 @@ public class PlayerPhysics : MonoBehaviour {
                 angle = Vector2.Angle(hit.normal, ray.direction) - 90;
                 if (i == 0 && angle < maxClimbAngle && angle > 0)
                 {
-                    
                     rayLength = hit.distance;
                     float climbVelocityY = Mathf.Sin(angle * Mathf.Deg2Rad) * Mathf.Abs(deltaX);
                     if (deltaY <= climbVelocityY)
@@ -67,7 +76,7 @@ public class PlayerPhysics : MonoBehaviour {
                         deltaY = climbVelocityY;
                         deltaX = Mathf.Cos(angle * Mathf.Deg2Rad) * deltaX;
                         climbingSlope = true;
-                        grounded = true;
+                        isGrounded = true;
                     }
                 }
                 if (!climbingSlope || angle > maxClimbAngle)
@@ -105,7 +114,7 @@ public class PlayerPhysics : MonoBehaviour {
                 float dst = Vector2.Distance(origin, hit.point) - skin;
                 deltaY = dir * dst;
                 rayLength = hit.distance;
-                grounded = true;
+                isGrounded = true;
                 if(climbingSlope)
                     deltaX = deltaY / Mathf.Tan(angle * Mathf.Deg2Rad) * Mathf.Sign(deltaX);
                 
@@ -113,5 +122,30 @@ public class PlayerPhysics : MonoBehaviour {
         }
     }
 
-    
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "aura")
+        {
+            isInAura = true;
+        }
+
+    }
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "aura")
+        {
+            isInAura = false;
+        }
+    }
+
+    void ResetCollisions()
+    {
+        //isInBuisson = false;
+        //isInAura = false;
+        isGrounded = false;
+        climbingSlope = false;
+        p = transform.position;
+    }
+
+
 }
