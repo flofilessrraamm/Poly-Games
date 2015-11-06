@@ -42,6 +42,8 @@ public class PlayerPhysics : MonoBehaviour {
             HorizontalCollisions();
             VerticalCollisions();
         }
+        else
+            isDead = true;
             //collisions haut/bas
 
             Vector3 transformMod = new Vector3(deltaX, deltaY, 0);

@@ -48,9 +48,9 @@ TagManager:
   - name: Corrupted_level
     uniqueID: 3647065341
     locked: 0
-  - name: Foreground
-    uniqueID: 669416469
-    locked: 0
   - name: Player
     uniqueID: 1138320657
+    locked: 0
+  - name: Foreground
+    uniqueID: 669416469
     locked: 0
