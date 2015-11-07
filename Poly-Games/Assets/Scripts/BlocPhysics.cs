@@ -72,7 +72,7 @@ public class BlocPhysics : MonoBehaviour
             if (hit)
             {
                 if (hit.transform.gameObject.tag == "fille")
-                    hit.transform.gameObject.GetComponent<PlayerPhysics>().isDead = true;
+                    hit.transform.parent.gameObject.GetComponent<PlayerPhysics>().isDead = true;
 
                 float dst = Vector2.Distance(origin, hit.point);
 
@@ -109,10 +109,10 @@ public class BlocPhysics : MonoBehaviour
 
                     if (hit.transform.gameObject.tag == "pere")
                     {
-                        PereControl pere = hit.transform.gameObject.GetComponent<PereControl>();
-                        if (-collisionDir == pere.dir || collisionDir == 0)
+                        PereControl pereControl = hit.transform.parent.gameObject.GetComponent<PereControl>();
+                        if (-collisionDir == pereControl.dir || collisionDir == 0)
                         {
-                            deltaX = pere.currentSpeed * Time.deltaTime / 10;
+                            deltaX = pereControl.currentSpeed * Time.deltaTime / 10;
                         }
                     }
                     else

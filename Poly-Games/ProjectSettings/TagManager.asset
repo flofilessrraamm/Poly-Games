@@ -8,6 +8,7 @@ TagManager:
   - aura
   - buisson
   - fille
+  - vine
   layers:
   - Default
   - TransparentFX

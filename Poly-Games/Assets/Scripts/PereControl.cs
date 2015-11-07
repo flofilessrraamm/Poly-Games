@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(PlayerPhysics))]
+
 public class PereControl : MonoBehaviour
 {
     [HideInInspector]
     public float currentSpeed;
     [HideInInspector]
     public int dir;
-    public float targetSpeed = 8, jumpHeight = 12, acceleration = 12, gravity = 20, sableFall = 3f;
+    public float targetSpeed = 8, jumpHeight = 12, acceleration = 12, gravity = 20, sableFall = 3f, climbingSpeed = 10f;
     private Vector3 amountToMove;
     private PlayerPhysics physics;
     public bool isInSable;
@@ -28,6 +28,16 @@ public class PereControl : MonoBehaviour
 
         if (!physics.isDead && !physics.isInSable)
         {
+            if (physics.isGrounded)
+                amountToMove.y = 0;
+
+            if (physics.canClimbOnVine)
+                Climb();
+            else if (Input.GetKeyDown("w"))
+            {
+                Jump();
+            }
+
             if (Input.GetKey("a"))
             {
                 dir = -1;
@@ -36,19 +46,13 @@ public class PereControl : MonoBehaviour
             {
                 dir = 1;
             }
-            if (physics.isGrounded)
-            {
-                amountToMove.y = 0;
-                if (Input.GetKeyDown("w"))
-                {
-                    amountToMove.y = jumpHeight;
-                }
-            }
-
 
             currentSpeed = incrementSpeed(currentSpeed, targetSpeed, acceleration, dir);
             amountToMove.x = currentSpeed;
-            amountToMove.y -= gravity * Time.deltaTime;
+
+            if(!physics.canClimbOnVine)
+                amountToMove.y -= gravity * Time.deltaTime;
+
 
             physics.Move(amountToMove * Time.deltaTime);
         }
@@ -80,6 +84,28 @@ public class PereControl : MonoBehaviour
             }
             else
                 return t;
+        }
+    }
+
+    void Jump()
+    {
+                if (physics.isGrounded)
+                    amountToMove.y = jumpHeight;
+    }
+    void Climb()
+    {
+        if (Input.GetKey("w"))
+        {
+            amountToMove.y = climbingSpeed;
+            physics.isGrounded = false;
+        }
+        else if (Input.GetKey("s"))
+        {
+            amountToMove.y = -climbingSpeed;
+        }
+        else
+        {
+            amountToMove.y = 0;
         }
     }
 

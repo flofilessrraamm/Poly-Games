@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(PlayerPhysics))]
+
 public class FilleControl : MonoBehaviour
 {
 

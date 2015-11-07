@@ -4,17 +4,19 @@ using System.Collections;
 public class TotemScript : MonoBehaviour {
 
 
-    public float descentSpeed = 20f;
+    public float descentSpeed, sideSpeed;
     public GameObject pere, fille;
     public GUIText gameOverText;
     GameController gameController;
-    int i;
+    int level, compteurDirection, dir = 1;
+    public int nbFramesDir = 10;
     Vector3 targetPos, velocity;
 
 
     void Start () {
+        compteurDirection = nbFramesDir / 2;
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
-        i = Application.loadedLevel;
+        level = Application.loadedLevel;
 
         if (gameController.startingLives - gameController.currentLives != 0)
             transform.position = gameController.oldTotemPosition;
@@ -33,7 +35,17 @@ public class TotemScript : MonoBehaviour {
     {
         if (transform.position.y > targetPos.y && transform.position.y - descentSpeed * Time.deltaTime > targetPos.y)
         {
-            velocity = new Vector3(0f, -descentSpeed, 0f) * Time.deltaTime;
+            if(compteurDirection < nbFramesDir)
+            {
+                compteurDirection++;
+            }
+            else
+            {
+                dir = -dir;
+                compteurDirection = 0;
+            }
+
+            velocity = new Vector3(dir * sideSpeed, -descentSpeed, 0f) * Time.deltaTime;
             transform.position += velocity;
         }
         else
@@ -62,7 +74,7 @@ public class TotemScript : MonoBehaviour {
                 }
                 gameController.totemUpdated = false;
             }
-            Application.LoadLevel(i);
+            Application.LoadLevel(level);
 
         }
     }

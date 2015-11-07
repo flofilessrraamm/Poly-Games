@@ -18,11 +18,11 @@ public class Sable : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject == pere)
+        if (col.gameObject.tag == "pere")
         {
             isPere = true;
         }
-        if (col.gameObject == aura)
+        if (col.gameObject.tag == "aura")
         {
             corrupted = true;
         }
@@ -30,11 +30,11 @@ public class Sable : MonoBehaviour {
     void OnTriggerExit2D(Collider2D col)
     {
 
-        if (col.gameObject == pere)
+        if (col.gameObject.tag == "pere")
         {
             isPere = false;
         }
-        if (col.gameObject == aura)
+        if (col.gameObject.tag == "aura")
         {
             corrupted = false;
         }

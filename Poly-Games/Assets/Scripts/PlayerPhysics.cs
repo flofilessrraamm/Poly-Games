@@ -5,8 +5,8 @@ public class PlayerPhysics : MonoBehaviour {
 
     public LayerMask collisionMask;
     [HideInInspector]
-    public bool isGrounded, isDead, isInBuisson, isInSable;
-    private bool climbingSlope, isInAura, pere;
+    public bool isGrounded, isDead, isInBuisson, isInSable, canClimbOnVine, isBodyInVine, isHandsInVine, isInAura, isHandsInAura;
+    private bool climbingSlope, pere;
     private BoxCollider2D boxCollider;
     private Vector2 c, s, p;
     public float skin = .005f, slopeMult = 10, maxClimbAngle = 70;
@@ -16,7 +16,7 @@ public class PlayerPhysics : MonoBehaviour {
 
     void Awake()
     {
-        boxCollider = GetComponent<BoxCollider2D>();
+        boxCollider = GetComponentInChildren<BoxCollider2D>();
         c = boxCollider.offset;
         s = boxCollider.size;
         if (gameObject.tag == "pere")
@@ -33,18 +33,18 @@ public class PlayerPhysics : MonoBehaviour {
 
 
         deltaY = moveAmount.y;
-            deltaX = moveAmount.x;
+        deltaX = moveAmount.x;
 
-            ResetCollisions();
+        ResetCollisions();
+        UpdateVineStatus();
 
         if (!isInSable)
         {
             HorizontalCollisions();
             VerticalCollisions();
         }
-        else
+        else if(isInSable)
             isDead = true;
-            //collisions haut/bas
 
             Vector3 transformMod = new Vector3(deltaX, deltaY, 0);
 
@@ -124,26 +124,24 @@ public class PlayerPhysics : MonoBehaviour {
         }
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    void UpdateVineStatus()
     {
-        if (col.gameObject.tag == "aura")
+        if (isHandsInVine)
         {
-            isInAura = true;
+            canClimbOnVine = true;
         }
-
-    }
-    void OnTriggerExit2D(Collider2D col)
-    {
-        if (col.gameObject.tag == "aura")
+        if (isHandsInAura)
         {
-            isInAura = false;
+            canClimbOnVine = false;
+        }
+        if(canClimbOnVine && !isBodyInVine)
+        {
+            canClimbOnVine = false;
         }
     }
 
     void ResetCollisions()
     {
-        //isInBuisson = false;
-        //isInAura = false;
         isGrounded = false;
         climbingSlope = false;
         p = transform.position;
