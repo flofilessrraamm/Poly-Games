@@ -4,11 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - pere
+  - pereBody
   - aura
   - buisson
-  - fille
+  - filleBody
   - vine
+  - pere
   layers:
   - Default
   - TransparentFX

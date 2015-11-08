@@ -18,7 +18,7 @@ public class Sable : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "pere")
+        if (col.gameObject.tag == "pereBody")
         {
             isPere = true;
         }
@@ -30,7 +30,7 @@ public class Sable : MonoBehaviour {
     void OnTriggerExit2D(Collider2D col)
     {
 
-        if (col.gameObject.tag == "pere")
+        if (col.gameObject.tag == "pereBody")
         {
             isPere = false;
         }

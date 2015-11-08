@@ -30,7 +30,7 @@ public class PlayerPhysics : MonoBehaviour {
         { 
             isDead = true;
         }
-
+        
 
         deltaY = moveAmount.y;
         deltaX = moveAmount.x;

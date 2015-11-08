@@ -1165,6 +1165,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 165482, guid: 91e7bc842fb9bcf48b5609be17ffdf57, type: 2}
+      propertyPath: m_TagString
+      value: pere
+      objectReference: {fileID: 0}
+    - target: {fileID: 182054, guid: 91e7bc842fb9bcf48b5609be17ffdf57, type: 2}
+      propertyPath: m_TagString
+      value: pereBody
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 91e7bc842fb9bcf48b5609be17ffdf57, type: 2}
   m_IsPrefabParent: 0
@@ -1215,6 +1223,10 @@ Prefab:
       propertyPath: main
       value: 
       objectReference: {fileID: 53657409}
+    - target: {fileID: 127160, guid: bd12b8c48ed23904dbe3c2e4417b88d7, type: 2}
+      propertyPath: m_TagString
+      value: filleBody
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bd12b8c48ed23904dbe3c2e4417b88d7, type: 2}
   m_IsPrefabParent: 0
@@ -2004,7 +2016,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   descentSpeed: .5
-  sideSpeed: 0
+  sideSpeed: .300000012
   pere: {fileID: 1031159173}
   fille: {fileID: 552004053}
   gameOverText: {fileID: 0}

@@ -32,7 +32,7 @@ public class Buisson : MonoBehaviour {
         {
             corrupted = true;
         }
-        if (col.gameObject.tag == "pere")
+        if (col.gameObject.tag == "pereBody")
         {
             isPere = true;
         }
@@ -47,7 +47,7 @@ public class Buisson : MonoBehaviour {
         {
             corrupted = false;
         }
-        if (col.gameObject.tag == "pere")
+        if (col.gameObject.tag == "pereBody")
         {
             isPere = false;
         }

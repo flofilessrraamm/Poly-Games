@@ -71,7 +71,7 @@ public class BlocPhysics : MonoBehaviour
             Debug.DrawRay(ray.origin, ray.direction);
             if (hit)
             {
-                if (hit.transform.gameObject.tag == "fille")
+                if (hit.transform.gameObject.tag == "filleBody")
                     hit.transform.parent.gameObject.GetComponent<PlayerPhysics>().isDead = true;
 
                 float dst = Vector2.Distance(origin, hit.point);
@@ -107,7 +107,7 @@ public class BlocPhysics : MonoBehaviour
                 {
                     float dst = Vector2.Distance(origin, hit.point);
 
-                    if (hit.transform.gameObject.tag == "pere")
+                    if (hit.transform.gameObject.tag == "pereBody")
                     {
                         PereControl pereControl = hit.transform.parent.gameObject.GetComponent<PereControl>();
                         if (-collisionDir == pereControl.dir || collisionDir == 0)
