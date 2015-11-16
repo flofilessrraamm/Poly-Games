@@ -5,22 +5,22 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance { get; private set; }
 
-    public int startingLives = 5, currentLives = 4;
+    public int startingLives = 5, currentLives = 4, level = 0;
 
     public Vector3 oldTotemPosition, initTotemPos, oldCameraPosition;
 
-    public bool totemUpdated = true, isOG;
+    public bool totemUpdated = true, isOriginal;
 
     void Awake()
     {
         GameController OG = GameObject.Find("GameController").GetComponent<GameController>();
-        if (instance != null && instance != this || OG.isOG && OG!=this)
+        if (instance != null && instance != this || OG.isOriginal && OG!=this)
         {
             Destroy(gameObject);
         }
         instance = this;
         DontDestroyOnLoad(gameObject);
-        isOG = true;
+        isOriginal = true;
     }
     void Start()
     {

@@ -16,7 +16,7 @@ public class TotemScript : MonoBehaviour {
     void Start () {
         compteurDirection = nbFramesDir / 2;
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
-        level = Application.loadedLevel;
+        level = gameController.level;
 
         if (gameController.startingLives - gameController.currentLives != 0)
             transform.position = gameController.oldTotemPosition;
