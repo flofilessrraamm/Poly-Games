@@ -39,10 +39,6 @@ public class Buisson : MonoBehaviour {
     }
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject.tag == "pere")
-        {
-            isPere = false;
-        }
         if (col.gameObject.tag == "aura")
         {
             corrupted = false;
