@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\HandCollisions.cs" />
     <Compile Include="Assets\Scripts\LevelEnd.cs" />
+    <Compile Include="Assets\Scripts\LucioleScript.cs" />
     <Compile Include="Assets\Scripts\PereControl.cs" />
     <Compile Include="Assets\Scripts\PlayerPhysics.cs" />
     <Compile Include="Assets\Scripts\Sable.cs" />
